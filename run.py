@@ -52,11 +52,12 @@ def get_graph():
     bar = Bar('Total Charges')
     bar.add('Total Charges', total_charges.index, total_charges,
             xaxis_name='customer id', yaxis_name='total charges',
-            yaxis_name_gap=50, **dataroom_opt)
+            yaxis_name_gap=50, yaxis_max=10000, **dataroom_opt)
     line = Line()
     line.add('Cumulative Proportion', charges_proportion.index,
              charges_proportion, yaxis_name='cumulative proportion',
-             yaxis_formatter="%", yaxis_name_gap=50, **dataroom_opt)
+             yaxis_formatter="%", yaxis_name_gap=50, yaxis_max=100,
+             **dataroom_opt)
     # 结合 bar 和 line 叠加画在同张图上
     overlap = Overlap()
     overlap.add(bar)
