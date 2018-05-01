@@ -14,6 +14,22 @@ class Data():
         self.df_ori = self._read_data(path)
         self.df_num = self._num_data()
 
+    def get_sorted_and_proportion(self, col, ascending=False):
+        """返回一个排序好的Series即其累计比例
+
+        Args:
+            col: (string) 列名 eg: 'TotalCharges'
+            ascending: (bool) 是否从小到大，默认从大到小
+
+        Return:
+            sorted_s: 排序完成的Series
+            proportion: 排序完成的Series的累计比例
+        """
+        series = self.df_ori[col]
+        sorted_s = series.sort_values(ascending=ascending)
+        proportion = sorted_s.cumsum() / sum(series) * 100
+        return sorted_s, proportion
+
     def _read_data(self, path):
         df = pd.read_csv(path)
         df.replace(' ', np.nan, inplace=True)
