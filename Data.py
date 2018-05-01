@@ -14,6 +14,20 @@ class Data():
         self.df_ori = self._read_data(path)
         self.df_num = self._num_data()
 
+    def get_churn(self, churn, num=False):
+        """返回一个以churn分开的df
+
+        Args:
+            churn: (string) 'Yes' 或者 'No'
+        """
+        assert (churn == 'Yes' or churn == 'No'), \
+            'churn must be "Yes" or "No", not "{}"'.format(churn)
+        if num:
+            # churn = int(churn == 'Yes')
+            return self.df_num[self.df_ori['Churn'] == churn]
+        else:
+            return self.df_ori[self.df_ori['Churn'] == churn]
+
     def get_sorted_and_proportion(self, col, ascending=False):
         """返回一个排序好的Series即其累计比例
 
