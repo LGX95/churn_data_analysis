@@ -37,11 +37,11 @@ def get_graph():
         'datazoom_range': [0, 50],
     }
     bar = Bar('Total Charges')
-    bar.add('Total Charges', total_charges.index, total_charges,
-            xaxis_name='customer id', yaxis_name='total charges',
+    bar.add('Total Charges', list(range(len(total_charges))), total_charges,
+            xaxis_name='cumtomer number', yaxis_name='total charges',
             yaxis_name_gap=50, yaxis_max=10000, **dataroom_opt)
     line = Line()
-    line.add('Cumulative Proportion', charges_proportion.index,
+    line.add('Cumulative Proportion', list(range(len(charges_proportion))),
              charges_proportion, yaxis_name='cumulative proportion',
              yaxis_formatter="%", yaxis_name_gap=50, yaxis_max=100,
              **dataroom_opt)
