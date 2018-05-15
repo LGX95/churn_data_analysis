@@ -1,3 +1,4 @@
+import os
 from collections import defaultdict
 import numpy as np
 import pandas as pd
@@ -43,6 +44,18 @@ class Data():
         sorted_s = series.sort_values(ascending=ascending)
         proportion = sorted_s.cumsum() / sum(series) * 100
         return sorted_s, proportion
+
+    def get_clusters(self, mode='ori', path='sorted_clusters.npy'):
+        """返回一个字典，key为分类，value为所分类的Dataframe
+        """
+        assert os.path.exists(path), "the file {} doesn't exist".format(path)
+        clusters = np.load('sorted_clusters.npy')
+        unique_cluster = np.unique(clusters)
+        cluster_dict = defaultdict(pd.DataFrame)
+        df = self.df_num if mode == 'num' else self.df_ori
+        for i in unique_cluster:
+            cluster_dict[i] = df.iloc[clusters == i]
+        return cluster_dict
 
     def _read_data(self, path):
         df = pd.read_csv(path)
