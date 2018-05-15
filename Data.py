@@ -52,7 +52,7 @@ class Data():
         return df
 
     def _num_data(self):
-        new_df = self.df_ori.copy()
+        new_df = self.df_ori.iloc[:, 1:].copy()
         non_num_columns = list(self.df_ori.select_dtypes(exclude=[np.number]))
         yes_no_other_columns = [c for c in non_num_columns
                                 if 'No' in self.df_ori[c].unique()
