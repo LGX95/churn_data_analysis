@@ -1,5 +1,6 @@
+import numpy as np
 from flask import Flask, render_template
-from pyecharts import Bar, Line, Overlap
+from pyecharts import Bar, Line, Overlap, Scatter
 
 from Data import Data
 
@@ -15,11 +16,24 @@ data = Data('~/Downloads/WA_Fn-UseC_-Telco-Customer-Churn.csv')
 
 @app.route('/')
 def index():
-    graph = get_graph()
+    graph = get_tsne_graph()
     return render_template('index.html',
                            myechart=graph.render_embed(),
                            host=REMOTE_HOST,
                            script_list=graph.get_js_dependencies())
+
+
+def get_tsne_graph():
+    """得到所有分类数据二维化的图
+    """
+    scatter = Scatter('所有数据二维化后的分类图')
+    clusters = np.load('sorted_clusters.npy')
+    unique_cluster = np.unique(clusters)
+    X_tsne = np.load('X_tsne.npy')
+    for i in unique_cluster:
+        X = X_tsne[clusters == i]
+        scatter.add(i, X[:, 0], X[:, 1])
+    return scatter
 
 
 def get_graph():
