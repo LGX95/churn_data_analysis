@@ -12,7 +12,7 @@ REMOTE_HOST = "https://cdn.bootcss.com/echarts/4.0.4/"
 
 
 data = Data('~/Downloads/WA_Fn-UseC_-Telco-Customer-Churn.csv')
-colors = ['#009900', '#CC3300', '#0099FF', '#663366']
+colors = ['#C23531', '#2F4554', '#61A0A8', '#D48265']
 
 
 @app.route('/')
