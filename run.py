@@ -20,12 +20,14 @@ def index():
     tsne_graph = get_tsne_graph()
     net_service_radar = get_internet_services_radar()
     funnel = get_clusters_funnel()
+    charges_scatter = get_charges_scatter()
     script_list = tsne_graph.get_js_dependencies() \
                   + net_service_radar.get_js_dependencies()
     return render_template('index.html',
                            tsne_graph=tsne_graph.render_embed(),
                            net_service_radar=net_service_radar.render_embed(),
                            funnel=funnel.render_embed(),
+                           charges_scatter=charges_scatter.render_embed(),
                            host=REMOTE_HOST,
                            script_list=script_list)
 
@@ -43,11 +45,21 @@ def get_tsne_graph():
     return scatter
 
 
+def get_charges_scatter():
+    """聚类后 MonthlyCharges 和 TotalCharges 的散点图
+    """
+    scatter = Scatter('MonthlyCharges 和 TotalCharges 的散点图')
+    for i in range(len(data.clusters)):
+        scatter.add(str(i), data.clusters[i]['MonthlyCharges'].values,
+                    data.clusters[i]['TotalCharges'].values,
+                    legend_pos='right')
+    return scatter
+
+
 def get_clusters_funnel():
     """聚类结果的漏斗图
     """
     attr = [str(i) for i in range(4)]
-    print(attr)
     value = [len(data.clusters[i]) for i in range(len(data.clusters))]
     funnel = Funnel('聚类结果漏斗图')
     funnel.add('', attr, value, is_label_show=True,
