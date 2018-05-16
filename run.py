@@ -1,6 +1,6 @@
 import numpy as np
 from flask import Flask, render_template
-from pyecharts import Bar, Line, Overlap, Scatter
+from pyecharts import Bar, Line, Overlap, Scatter, Radar
 
 from Data import Data
 
@@ -12,15 +12,20 @@ REMOTE_HOST = "https://cdn.bootcss.com/echarts/4.0.4/"
 
 
 data = Data('~/Downloads/WA_Fn-UseC_-Telco-Customer-Churn.csv')
+colors = ['#009900', '#CC3300', '#0099FF', '#663366']
 
 
 @app.route('/')
 def index():
-    graph = get_tsne_graph()
+    tsne_graph = get_tsne_graph()
+    net_service_radar = get_internet_services_radar()
+    script_list = tsne_graph.get_js_dependencies() \
+                  + net_service_radar.get_js_dependencies()
     return render_template('index.html',
-                           myechart=graph.render_embed(),
+                           tsne_graph=tsne_graph.render_embed(),
+                           net_service_radar=net_service_radar.render_embed(),
                            host=REMOTE_HOST,
-                           script_list=graph.get_js_dependencies())
+                           script_list=script_list)
 
 
 def get_tsne_graph():
@@ -32,8 +37,24 @@ def get_tsne_graph():
     X_tsne = np.load('X_tsne.npy')
     for i in unique_cluster:
         X = X_tsne[clusters == i]
-        scatter.add(i, X[:, 0], X[:, 1])
+        scatter.add(str(i), X[:, 0], X[:, 1])
     return scatter
+
+
+def get_internet_services_radar():
+    """与internet service 相关的服务的雷达图
+    """
+    internet_service_columns = ['OnlineSecurity', 'OnlineBackup',
+                                'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
+    clusters = data.get_clusters()
+    schema = [(col, 1) for col in internet_service_columns]
+    radar = Radar('与 Internet Service 相关的服务')
+    radar.config(schema)
+    for i in range(len(clusters)):
+        yes = clusters[i].loc[:, internet_service_columns] == 'Yes'
+        result = yes.sum(0) / len(clusters[i])
+        radar.add(str(i), [result.values], item_color=colors[i])
+    return radar
 
 
 def get_graph():
