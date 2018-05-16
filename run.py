@@ -46,10 +46,9 @@ def get_tsne_graph():
 def get_clusters_funnel():
     """聚类结果的漏斗图
     """
-    clusters = data.get_clusters()
     attr = [str(i) for i in range(4)]
     print(attr)
-    value = [len(clusters[i]) for i in range(len(clusters))]
+    value = [len(data.clusters[i]) for i in range(len(data.clusters))]
     funnel = Funnel('聚类结果漏斗图')
     funnel.add('', attr, value, is_label_show=True,
                label_pos='inside', label_text_color='#fff')
@@ -61,13 +60,12 @@ def get_internet_services_radar():
     """
     internet_service_columns = ['OnlineSecurity', 'OnlineBackup',
                                 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
-    clusters = data.get_clusters()
     schema = [(col, 1) for col in internet_service_columns]
     radar = Radar('与 Internet Service 相关的服务')
     radar.config(schema)
-    for i in range(len(clusters)):
-        yes = clusters[i].loc[:, internet_service_columns] == 'Yes'
-        result = yes.sum(0) / len(clusters[i])
+    for i in range(len(data.clusters)):
+        yes = data.clusters[i].loc[:, internet_service_columns] == 'Yes'
+        result = yes.sum(0) / len(data.clusters[i])
         radar.add(str(i), [result.values], item_color=colors[i])
     return radar
 

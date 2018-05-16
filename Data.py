@@ -14,6 +14,7 @@ class Data():
     def __init__(self, path):
         self.df_ori = self._read_data(path)
         self.df_num = self._num_data()
+        self.clusters = self.get_clusters()
 
     def get_churn(self, churn, num=False):
         """返回一个以churn分开的df
