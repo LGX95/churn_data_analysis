@@ -1,6 +1,6 @@
 import numpy as np
 from flask import Flask, render_template
-from pyecharts import Bar, Line, Overlap, Scatter, Radar
+from pyecharts import Bar, Line, Overlap, Scatter, Radar, Funnel
 
 from Data import Data
 
@@ -19,11 +19,13 @@ colors = ['#009900', '#CC3300', '#0099FF', '#663366']
 def index():
     tsne_graph = get_tsne_graph()
     net_service_radar = get_internet_services_radar()
+    funnel = get_clusters_funnel()
     script_list = tsne_graph.get_js_dependencies() \
                   + net_service_radar.get_js_dependencies()
     return render_template('index.html',
                            tsne_graph=tsne_graph.render_embed(),
                            net_service_radar=net_service_radar.render_embed(),
+                           funnel=funnel.render_embed(),
                            host=REMOTE_HOST,
                            script_list=script_list)
 
@@ -39,6 +41,19 @@ def get_tsne_graph():
         X = X_tsne[clusters == i]
         scatter.add(str(i), X[:, 0], X[:, 1])
     return scatter
+
+
+def get_clusters_funnel():
+    """聚类结果的漏斗图
+    """
+    clusters = data.get_clusters()
+    attr = [str(i) for i in range(4)]
+    print(attr)
+    value = [len(clusters[i]) for i in range(len(clusters))]
+    funnel = Funnel('聚类结果漏斗图')
+    funnel.add('', attr, value, is_label_show=True,
+               label_pos='inside', label_text_color='#fff')
+    return funnel
 
 
 def get_internet_services_radar():
