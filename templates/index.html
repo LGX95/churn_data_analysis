@@ -14,4 +14,16 @@
 <li>Customer account information – how long they’ve been a customer, contract, payment method, paperless billing, monthly charges, and total charges</li>
 <li>Demographic info about customers – gender, age range, and if they have partners and dependents</li>
 </ul>
+
+<br>
+<p>下面是数据的前5条信息：</p>
+<div class="table-responsive">
+{{ table|safe }}
+</div>
+
+<style>
+    .table-font {
+        font-size: 0.8rem;
+    }
+</style>
 {% endblock %}
