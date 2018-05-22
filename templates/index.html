@@ -1,13 +1,62 @@
-{% extends 'layout.html' %}
-{% block body %}
-    <br>
-    {{ tsne_graph|safe }}
-    <br>
-    {{ funnel|safe }}
-    <br>
-    {{ tenure_bar|safe }}
-    <br>
-    {{ charges_scatter|safe }}
-    <br>
-    {{ net_service_radar|safe }}
+{% extends 'layout.html' %} {% block body %}
+<br>
+<div class="row">
+    <div class="col">
+        <div id="{{ tsne_id }}"></div>
+        {{ echarts_container(tsne) }} {{ echarts_js_content(tsne) }}
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+    <div class="col">
+        <div id="{{ funnel }}"></div>
+        {{ echarts_container(funnel) }} {{ echarts_js_content(funnel) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <div id="{{ tenure_bar }}"></div>
+        {{ echarts_container(tenure_bar) }} {{ echarts_js_content(tenure_bar) }}
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+    <div class="col">
+        <div id="{{ charges_scatter }}"></div>
+        {{ echarts_container(charges_scatter) }} {{ echarts_js_content(charges_scatter) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <div id="{{ net_service_radar }}"></div>
+        {{ echarts_container(net_service_radar) }} {{ echarts_js_content(net_service_radar) }}
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+</div>
 {% endblock %}

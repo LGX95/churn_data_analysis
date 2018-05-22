@@ -1,12 +1,26 @@
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template
+from flask.templating import Environment
 from pyecharts import Bar, Line, Overlap, Scatter, Radar, Funnel
+from pyecharts.engine import ECHAERTS_TEMPLATE_FUNCTIONS
+from pyecharts.conf import PyEchartsConfig
 
 from Data import Data
 
 
-app = Flask(__name__)
+class FlaskEchartsEnvironment(Environment):
+    def __init__(self, *args, **kwargs):
+        super(FlaskEchartsEnvironment, self).__init__(*args, **kwargs)
+        self.pyecharts_config = PyEchartsConfig(jshost='/static/js')
+        self.globals.update(ECHAERTS_TEMPLATE_FUNCTIONS)
+
+
+class MyFlask(Flask):
+    jinja_environment = FlaskEchartsEnvironment
+
+
+app = MyFlask("/")
 
 
 data = Data('~/Downloads/WA_Fn-UseC_-Telco-Customer-Churn.csv')
@@ -21,11 +35,11 @@ def index():
     charges_scatter = get_charges_scatter()
     tenure_bar = get_tenure_bar()
     return render_template('index.html',
-                           tsne_graph=tsne_graph.render_embed(),
-                           net_service_radar=net_service_radar.render_embed(),
-                           funnel=funnel.render_embed(),
-                           charges_scatter=charges_scatter.render_embed(),
-                           tenure_bar=tenure_bar.render_embed(),
+                           tsne=tsne_graph,
+                           funnel=funnel,
+                           tenure_bar=tenure_bar,
+                           net_service_radar=net_service_radar,
+                           charges_scatter=charges_scatter,
                            )
 
 
@@ -81,7 +95,8 @@ def get_internet_services_radar():
     """与internet service 相关的服务的雷达图
     """
     internet_service_columns = ['OnlineSecurity', 'OnlineBackup',
-                                'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies']
+                                'DeviceProtection', 'TechSupport',
+                                'StreamingTV', 'StreamingMovies']
     schema = [(col, 1) for col in internet_service_columns]
     radar = Radar('与 Internet Service 相关的服务')
     radar.config(schema)
