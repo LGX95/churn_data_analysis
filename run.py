@@ -9,9 +9,6 @@ from Data import Data
 app = Flask(__name__)
 
 
-REMOTE_HOST = "https://cdn.bootcss.com/echarts/4.0.4/"
-
-
 data = Data('~/Downloads/WA_Fn-UseC_-Telco-Customer-Churn.csv')
 colors = ['#C23531', '#2F4554', '#61A0A8', '#D48265']
 
@@ -23,16 +20,13 @@ def index():
     funnel = get_clusters_funnel()
     charges_scatter = get_charges_scatter()
     tenure_bar = get_tenure_bar()
-    script_list = tsne_graph.get_js_dependencies() \
-        + net_service_radar.get_js_dependencies()
     return render_template('index.html',
                            tsne_graph=tsne_graph.render_embed(),
                            net_service_radar=net_service_radar.render_embed(),
                            funnel=funnel.render_embed(),
                            charges_scatter=charges_scatter.render_embed(),
                            tenure_bar=tenure_bar.render_embed(),
-                           host=REMOTE_HOST,
-                           script_list=script_list)
+                           )
 
 
 def get_tsne_graph():
