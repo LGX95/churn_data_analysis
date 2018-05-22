@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, render_template
 from flask.templating import Environment
-from pyecharts import Bar, Line, Overlap, Scatter, Radar, Funnel
+from pyecharts import Bar, Line, Overlap, Scatter, Radar, Pie
 from pyecharts.engine import ECHAERTS_TEMPLATE_FUNCTIONS
 from pyecharts.conf import PyEchartsConfig
 
@@ -41,12 +41,12 @@ def all():
 def clusters():
     tsne_graph = get_tsne_graph()
     net_service_radar = get_internet_services_radar()
-    funnel = get_clusters_funnel()
+    number_bar = get_number_bar()
     charges_scatter = get_charges_scatter()
     tenure_bar = get_tenure_bar()
     return render_template('clusters.html',
                            tsne=tsne_graph,
-                           funnel=funnel,
+                           number_bar=number_bar,
                            tenure_bar=tenure_bar,
                            net_service_radar=net_service_radar,
                            charges_scatter=charges_scatter,
@@ -77,15 +77,26 @@ def get_charges_scatter():
     return scatter
 
 
-def get_clusters_funnel():
-    """聚类结果的漏斗图
+def get_number_bar():
+    """聚类结果的数量柱状图
+    """
+    attr = [str(i) for i in range(4)]
+    bar = Bar('分类数量图')
+    for i in range(len(data.clusters)):
+        value = [None] * 4
+        value[i] = len(data.clusters[i])
+        bar.add(str(i), attr, value, is_stack=True, is_label_show=True)
+    return bar
+
+
+def get_number_pie():
+    """聚类结果的数量饼图
     """
     attr = [str(i) for i in range(4)]
     value = [len(data.clusters[i]) for i in range(len(data.clusters))]
-    funnel = Funnel('聚类结果漏斗图')
-    funnel.add('', attr, value, is_label_show=True,
-               label_pos='inside', label_text_color='#fff')
-    return funnel
+    pie = Pie('分类数量图')
+    pie.add('', attr, value, is_label_show=True, label_formatter="{c}")
+    return pie
 
 
 def get_tenure_bar():
