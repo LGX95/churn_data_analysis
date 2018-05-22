@@ -1,5 +1,6 @@
 {% extends 'layout.html' %} {% block body %}
 <br>
+<hr>
 <div class="row">
     <div class="col-12 col-sm-12 col-md-10 col-lg-10">
         {{ echarts_container(tsne) }}
@@ -16,6 +17,7 @@
         <p>t-SNE（TSNE）将数据点的亲和度转换为概率。原始空间中的亲和度用高斯联合概率表示，并且嵌入空间中的亲和度用Student's t-分布表示。将所有数据t-SNE后可视化所有分类。</p>
     </div>
 </div>
+<hr>
 <br>
 <div class="row">
     <div class="col">
@@ -27,6 +29,7 @@
         {{ echarts_container(number_bar) }} {{ echarts_js_content(number_bar) }}
     </div>
 </div>
+<hr>
 <br>
 <div class="row">
     <div class="col">
@@ -38,6 +41,7 @@
         <p>Tenure 为顾客使用服务的时间，从图中可以看出第0分类大部分都是使用服务时间较短的，而第三分类使用服务的时间较长。</p>
     </div>
 </div>
+<hr>
 <br>
 <div class="row">
     <div class="col">
@@ -49,6 +53,7 @@
         {{ echarts_container(charges_scatter) }} {{ echarts_js_content(charges_scatter) }}
     </div>
 </div>
+<hr>
 <br>
 <div class="row">
     <div class="col">
@@ -60,6 +65,7 @@
         <p>这是Internet服务的使用比例雷达图，可以看出第三分类的使用这个服务的比例最高。</p>
     </div>
 </div>
+<hr>
 <br>
 <div class="row">
     <div class="col">
