@@ -2,7 +2,6 @@
 <br>
 <div class="row">
     <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-        <div id="{{ tsne_id }}"></div>
         {{ echarts_container(tsne) }}
         <script>
             {{ echarts_js_content_wrap(tsne) }}
@@ -25,14 +24,12 @@
         <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
     </div>
     <div class="col">
-        <div id="{{ funnel }}"></div>
         {{ echarts_container(funnel) }} {{ echarts_js_content(funnel) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col">
-        <div id="{{ tenure_bar }}"></div>
         {{ echarts_container(tenure_bar) }} {{ echarts_js_content(tenure_bar) }}
     </div>
     <div class="col">
@@ -49,14 +46,12 @@
         <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
     </div>
     <div class="col">
-        <div id="{{ charges_scatter }}"></div>
         {{ echarts_container(charges_scatter) }} {{ echarts_js_content(charges_scatter) }}
     </div>
 </div>
 <br>
 <div class="row">
     <div class="col">
-        <div id="{{ net_service_radar }}"></div>
         {{ echarts_container(net_service_radar) }} {{ echarts_js_content(net_service_radar) }}
     </div>
     <div class="col">
