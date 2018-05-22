@@ -44,12 +44,14 @@ def clusters():
     number_bar = get_number_bar()
     charges_scatter = get_charges_scatter()
     tenure_bar = get_tenure_bar()
+    contract_bar = get_contract_bar()
     return render_template('clusters.html',
                            tsne=tsne_graph,
                            number_bar=number_bar,
                            tenure_bar=tenure_bar,
                            net_service_radar=net_service_radar,
                            charges_scatter=charges_scatter,
+                           contract_bar=contract_bar,
                            )
 
 
@@ -126,6 +128,17 @@ def get_internet_services_radar():
         result = yes.sum(0) / len(data.clusters[i])
         radar.add(str(i), [result.values], item_color=colors[i])
     return radar
+
+
+def get_contract_bar():
+    """Contract 的柱状图
+    """
+    bar = Bar("Contract")
+    for i in range(len(data.clusters)):
+        unique = data.clusters[i]['Contract'].value_counts().sort_index()
+        bar.add(str(i), unique.index, unique, is_stack=True,
+                is_label_show=True, label_pos="inside")
+    return bar
 
 
 def get_graph():
