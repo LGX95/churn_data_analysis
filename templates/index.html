@@ -1,11 +1,17 @@
 {% extends 'layout.html' %} {% block body %}
 <br>
 <div class="row">
-    <div class="col">
+    <div class="col-12 col-sm-12 col-md-10 col-lg-10">
         <div id="{{ tsne_id }}"></div>
-        {{ echarts_container(tsne) }} {{ echarts_js_content(tsne) }}
+        {{ echarts_container(tsne) }}
+        <script>
+            {{ echarts_js_content_wrap(tsne) }}
+            window.onresize = function() {
+                myChart_{{ tsne.chart_id }}.resize();
+            };
+        </script>
     </div>
-    <div class="col">
+    <div class="col-12 col-sm-12 col-md-2 col-lg-2">
         <br>
         <br>
         <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>

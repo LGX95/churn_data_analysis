@@ -46,7 +46,7 @@ def index():
 def get_tsne_graph():
     """得到所有分类数据二维化的图
     """
-    scatter = Scatter('所有数据二维化后的分类图')
+    scatter = Scatter('所有数据二维化后的分类图', width="100%")
     clusters = np.load('sorted_clusters.npy')
     unique_cluster = np.unique(clusters)
     X_tsne = np.load('X_tsne.npy')
