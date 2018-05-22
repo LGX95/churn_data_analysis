@@ -29,23 +29,23 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Fixed navbar</a>
+            <a class="navbar-brand" href="#">Churn Data Visualize</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" href="all">All</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
+                        <a class="nav-link" href="clusters">Clusters</a>
                     </li>
                 </ul>
             </div>
@@ -75,6 +75,18 @@
     <script src="../static/js/popper.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
 
+    <script>
+        $(document).ready(function () {
+            $(".nav-link").each(function() {
+                if ($(this).attr("href") == String(location.pathname)) {
+                    $(this).parent().addClass("active");
+                }
+                else if ("/" + $(this).attr("href") == String(location.pathname)) {
+                    $(this).parent().addClass("active");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

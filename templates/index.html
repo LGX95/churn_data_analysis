@@ -1,63 +1,17 @@
 {% extends 'layout.html' %} {% block body %}
-<br>
-<div class="row">
-    <div class="col-12 col-sm-12 col-md-10 col-lg-10">
-        {{ echarts_container(tsne) }}
-        <script>
-            {{ echarts_js_content_wrap(tsne) }}
-            window.onresize = function() {
-                myChart_{{ tsne.chart_id }}.resize();
-            };
-        </script>
-    </div>
-    <div class="col-12 col-sm-12 col-md-2 col-lg-2">
-        <br>
-        <br>
-        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        <br>
-        <br>
-        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
-    </div>
-    <div class="col">
-        {{ echarts_container(funnel) }} {{ echarts_js_content(funnel) }}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{ echarts_container(tenure_bar) }} {{ echarts_js_content(tenure_bar) }}
-    </div>
-    <div class="col">
-        <br>
-        <br>
-        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        <br>
-        <br>
-        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
-    </div>
-    <div class="col">
-        {{ echarts_container(charges_scatter) }} {{ echarts_js_content(charges_scatter) }}
-    </div>
-</div>
-<br>
-<div class="row">
-    <div class="col">
-        {{ echarts_container(net_service_radar) }} {{ echarts_js_content(net_service_radar) }}
-    </div>
-    <div class="col">
-        <br>
-        <br>
-        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
-    </div>
-</div>
+
+<p>这是 Churn 数据分析的演示</p>
+
+<p>数据来源：<a href="https://www.ibm.com/communities/analytics/watson-analytics-blog/predictive-insights-in-the-telco-customer-churn-data-set/">Using Customer Behavior Data to Improve Customer Retention</a></p>
+
+<p>下载地址：<a href="https://community.watsonanalytics.com/wp-content/uploads/2015/03/WA_Fn-UseC_-Telco-Customer-Churn.xlsx">Telco Customer Churn data set. WA_Fn-UseC_-Telco-Customer-Churn</a></p>
+
+<p>数据集的基本信息：</p>
+
+<ul>
+<li>Customers who left within the last month – the column is called Churn</li>
+<li>Services that each customer has signed up for – phone, multiple lines, internet, online security, online backup, device protection, tech support, and streaming TV and movies</li>
+<li>Customer account information – how long they’ve been a customer, contract, payment method, paperless billing, monthly charges, and total charges</li>
+<li>Demographic info about customers – gender, age range, and if they have partners and dependents</li>
+</ul>
 {% endblock %}

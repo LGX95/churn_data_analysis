@@ -29,12 +29,22 @@ colors = ['#C23531', '#2F4554', '#61A0A8', '#D48265']
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+
+@app.route('/all')
+def all():
+    return render_template('all.html')
+
+
+@app.route('/clusters')
+def clusters():
     tsne_graph = get_tsne_graph()
     net_service_radar = get_internet_services_radar()
     funnel = get_clusters_funnel()
     charges_scatter = get_charges_scatter()
     tenure_bar = get_tenure_bar()
-    return render_template('index.html',
+    return render_template('clusters.html',
                            tsne=tsne_graph,
                            funnel=funnel,
                            tenure_bar=tenure_bar,

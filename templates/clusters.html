@@ -1,0 +1,63 @@
+{% extends 'layout.html' %} {% block body %}
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-10 col-lg-10">
+        {{ echarts_container(tsne) }}
+        <script>
+            {{ echarts_js_content_wrap(tsne) }}
+            window.onresize = function() {
+                myChart_{{ tsne.chart_id }}.resize();
+            };
+        </script>
+    </div>
+    <div class="col-12 col-sm-12 col-md-2 col-lg-2">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+    <div class="col">
+        {{ echarts_container(funnel) }} {{ echarts_js_content(funnel) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        {{ echarts_container(tenure_bar) }} {{ echarts_js_content(tenure_bar) }}
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+    <div class="col">
+        {{ echarts_container(charges_scatter) }} {{ echarts_js_content(charges_scatter) }}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        {{ echarts_container(net_service_radar) }} {{ echarts_js_content(net_service_radar) }}
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <p>文字说明文字说明文字说明文字说明文字说明文字说明文字说明文字说明</p>
+    </div>
+</div>
+{% endblock %}
