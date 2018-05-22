@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from flask import Flask, render_template
 from pyecharts import Bar, Line, Overlap, Scatter, Radar, Funnel
 
@@ -21,13 +22,15 @@ def index():
     net_service_radar = get_internet_services_radar()
     funnel = get_clusters_funnel()
     charges_scatter = get_charges_scatter()
+    tenure_bar = get_tenure_bar()
     script_list = tsne_graph.get_js_dependencies() \
-                  + net_service_radar.get_js_dependencies()
+        + net_service_radar.get_js_dependencies()
     return render_template('index.html',
                            tsne_graph=tsne_graph.render_embed(),
                            net_service_radar=net_service_radar.render_embed(),
                            funnel=funnel.render_embed(),
                            charges_scatter=charges_scatter.render_embed(),
+                           tenure_bar=tenure_bar.render_embed(),
                            host=REMOTE_HOST,
                            script_list=script_list)
 
@@ -65,6 +68,19 @@ def get_clusters_funnel():
     funnel.add('', attr, value, is_label_show=True,
                label_pos='inside', label_text_color='#fff')
     return funnel
+
+
+def get_tenure_bar():
+    """tenure 柱状图
+    """
+    bar = Bar("Tenure")
+    series0 = pd.Series([0] * 72, index=range(1, 73))
+    for i in range(len(data.clusters)):
+        value_count = data.clusters[i]['tenure'].value_counts().sort_index()
+        bar.add(str(i), series0.index, series0.add(value_count, fill_value=0),
+                is_stack=True, is_datazoom_show=True, datazoom_type='both',
+                datazoom_range=[0, 100])
+    return bar
 
 
 def get_internet_services_radar():
