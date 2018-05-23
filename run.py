@@ -150,7 +150,7 @@ def get_heatmap():
     corr = data.df_num.corr()
     corr_l = [[i, j, corr.loc[i, j]] for i in corr.index for j in corr.columns]
     heatmap.add('', corr.index, corr.columns, corr_l, is_visualmap=True,
-                visual_range=[-1, 1], visual_orient='horizontal',
+                visual_range=[-1, 1], visual_pos='right', visual_top='bottom',
                 visual_text_color='#000', xaxis_rotate=90, yaxis_interval=0)
     return heatmap
 
