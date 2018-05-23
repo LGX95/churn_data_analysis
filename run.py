@@ -112,7 +112,7 @@ def get_tenure_bar():
         value_count = data.clusters[i]['tenure'].value_counts().sort_index()
         bar.add(str(i), series0.index, series0.add(value_count, fill_value=0),
                 is_stack=True, is_datazoom_show=True, datazoom_type='both',
-                datazoom_range=[0, 100])
+                datazoom_range=[0, 100], bar_category_gap=0)
     return bar
 
 
