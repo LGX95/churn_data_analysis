@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, render_template
 from flask.templating import Environment
-from pyecharts import Bar, Line, Overlap, Scatter, Radar, Pie
+from pyecharts import Bar, Line, Overlap, Scatter, Radar, Pie, HeatMap
 from pyecharts.engine import ECHAERTS_TEMPLATE_FUNCTIONS
 from pyecharts.conf import PyEchartsConfig
 
@@ -36,7 +36,8 @@ def index():
 
 @app.route('/all')
 def all():
-    return render_template('all.html')
+    heatmap = get_heatmap()
+    return render_template('all.html', heatmap=heatmap)
 
 
 @app.route('/clusters')
@@ -141,6 +142,16 @@ def get_contract_bar():
         bar.add(str(i), unique.index, unique, is_stack=True,
                 is_label_show=True, label_pos="inside")
     return bar
+
+
+def get_heatmap():
+    heatmap = HeatMap("热力图", height=600)
+    corr = data.df_num.corr()
+    corr_l = [[i, j, corr.loc[i, j]] for i in corr.index for j in corr.columns]
+    heatmap.add('', corr.index, corr.columns, corr_l, is_visualmap=True,
+                visual_range=[-1, 1], visual_orient='horizontal',
+                visual_text_color='#000', xaxis_rotate=90, yaxis_interval=0)
+    return heatmap
 
 
 def get_graph():

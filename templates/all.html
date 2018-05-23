@@ -1,3 +1,14 @@
 {% extends 'layout.html' %} {% block body %}
-    TODO
+<br>
+<hr>
+<div class="row">
+    <div class="col">
+        {{ echarts_container(heatmap) }} {{ echarts_js_content(heatmap) }}
+    </div>
+    <div class="col">
+        <br>
+        <br>
+        <p>数据各列之间的Pearson相关系数</p>
+    </div>
+</div>
 {% endblock %}
