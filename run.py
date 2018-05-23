@@ -30,7 +30,8 @@ colors = ['#C23531', '#2F4554', '#61A0A8', '#D48265']
 @app.route('/')
 def index():
     html_table = data.df_ori.head().to_html(classes=[
-        "table", "table-sm", "table-bordered", "table-striped", "table-hover", "table-font"])
+        "table", "table-sm", "table-bordered", "table-striped",
+        "table-hover", "table-font"])
     return render_template('index.html', table=html_table)
 
 
